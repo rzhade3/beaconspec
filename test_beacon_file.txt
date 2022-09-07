@@ -1,0 +1,16 @@
+#FORMAT: BEACON
+#PREFIX: http://zhade.dev/
+#TARGET: http://zhade.dev/beacon
+#RELATION: http://zhade.dev/relation
+#MESSAGE: This is a message!
+#ANNOTATION: This is an annotation!
+#DESCRIPTION: This is a description of the filedump!
+#CREATOR: Ronald McDonald
+#CONTACT: foo@bar.com
+#HOMEPAGE: http://example.com/
+#FEED: http://example.com/download
+#TIMESTAMP: 2022-09-28T00:00:00.000000
+#UPDATE: weekly
+
+foo.com|bar|baz
+bar.com|baz|qux
