@@ -10,7 +10,7 @@ It is designed to be used as a library to parse Beacon spec files.
 import "github.com/rzhade3/beaconspec"
 
 func main() {
-    metadata, err := beaconspec.ParseMetadata("/path/to/beacon_file.txt")
+    metadata, err := beaconspec.ReadMetadata("/path/to/beacon_file.txt")
     if err != nil {
         panic(err)
     }

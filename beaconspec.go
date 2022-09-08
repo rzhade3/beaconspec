@@ -8,6 +8,7 @@ import (
 	"strings"
 )
 
+// Stores all of the data from the Metadata header in a Beacon file
 type BeaconMetadata struct {
 	prefix     string
 	target     string
@@ -24,18 +25,15 @@ type BeaconMetadata struct {
 	update      string
 }
 
-// One line contains a:
-// 1. Source
-// 2. Annotation
-// 3. Target
+// One line in a Beacon file contains a source, annotation, then a target
 type BeaconLine struct {
 	Source     string
 	Annotation string
 	Target     string
 }
 
-func ParseMetadata(filename string) (BeaconMetadata, error) {
-	// Reads Metadata portion of the Beacon file
+// Reads Metadata portion of the Beacon file
+func ReadMetadata(filename string) (BeaconMetadata, error) {
 	f, err := os.Open(filename)
 	m := BeaconMetadata{}
 	if err != nil {
@@ -84,8 +82,9 @@ func extractMetadataValue(line string) string {
 	return strings.TrimSpace(s[1])
 }
 
+// Parses an individual line from the Beacon file
+// and returns a BeaconLine struct
 func ParseLine(line string, data *BeaconMetadata) (BeaconLine, error) {
-	// Parses an individual line from the Beacon file
 	b := BeaconLine{}
 	s := strings.Split(line, "|")
 	if len(s) > 3 {
@@ -114,8 +113,8 @@ func ParseLine(line string, data *BeaconMetadata) (BeaconLine, error) {
 	return b, nil
 }
 
+// Checks if a string is a strict url
 func isUrl(s string) bool {
-	// Checks if a string is a url
 	_, err := url.ParseRequestURI(s)
 	return err == nil
 }
