@@ -4,10 +4,10 @@ import (
 	"testing"
 )
 
-func TestParseMetadata(t *testing.T) {
-	actual, err := ParseMetadata("test_beacon_file.txt")
+func TestReadMetadata(t *testing.T) {
+	actual, err := ReadMetadata("test_beacon_file.txt")
 	if err != nil {
-		t.Errorf("ParseMetadata() != nil")
+		t.Errorf("ReadMetadata() != nil")
 	}
 	expected := BeaconMetadata{
 		prefix:      "http://zhade.dev/",

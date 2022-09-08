@@ -1,3 +1,4 @@
+// Package beaconspec provides methods for parsing a Beacon dump file
 package beaconspec
 
 import (
@@ -32,7 +33,8 @@ type BeaconLine struct {
 	Target     string
 }
 
-// Reads Metadata portion of the Beacon file
+// ReadMetadata reads a Beacon file, and parse its metadata into a
+// BeaconMetadata struct if it is valid
 func ReadMetadata(filename string) (BeaconMetadata, error) {
 	f, err := os.Open(filename)
 	m := BeaconMetadata{}
@@ -47,6 +49,7 @@ func ReadMetadata(filename string) (BeaconMetadata, error) {
 		if !strings.HasPrefix(line, "#") {
 			break
 		}
+		// TODO: What if the metadata doesn't match any of the below?
 		switch {
 		case strings.HasPrefix(line, "#PREFIX:"):
 			m.prefix = extractMetadataValue(line)
@@ -82,9 +85,9 @@ func extractMetadataValue(line string) string {
 	return strings.TrimSpace(s[1])
 }
 
-// Parses an individual line from the Beacon file
-// and returns a BeaconLine struct
-func ParseLine(line string, data *BeaconMetadata) (BeaconLine, error) {
+// ParseLine accepts a single line from a Beacon file, and parses it into a
+// BeaconLine struct, combining it with the metadata from the file.
+func ParseLine(line string, data BeaconMetadata) (BeaconLine, error) {
 	b := BeaconLine{}
 	s := strings.Split(line, "|")
 	if len(s) > 3 {
@@ -113,7 +116,6 @@ func ParseLine(line string, data *BeaconMetadata) (BeaconLine, error) {
 	return b, nil
 }
 
-// Checks if a string is a strict url
 func isUrl(s string) bool {
 	_, err := url.ParseRequestURI(s)
 	return err == nil
