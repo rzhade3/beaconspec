@@ -141,7 +141,7 @@ func TestParseLine(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
-		got, err := ParseLine(tt.line, &BeaconMetadata{})
+		got, err := ParseLine(tt.line, BeaconMetadata{})
 		if err != nil {
 			t.Errorf("ParseLine(%s) error %v", tt.line, err)
 		}
@@ -186,7 +186,7 @@ func TestParseLineWithMetadata(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		got, err := ParseLine(tt.line, &tt.meta)
+		got, err := ParseLine(tt.line, tt.meta)
 		if err != nil {
 			t.Errorf("ParseLine(%s) error %v", tt.line, err)
 		}
@@ -198,7 +198,7 @@ func TestParseLineWithMetadata(t *testing.T) {
 
 func TestParseLineError(t *testing.T) {
 	s := "http://example.com/|foo|bar|baz"
-	_, err := ParseLine(s, &BeaconMetadata{})
+	_, err := ParseLine(s, BeaconMetadata{})
 	if err == nil {
 		t.Errorf("ParseLine(%s) error = nil, want error", s)
 	}
