@@ -139,6 +139,14 @@ func TestParseLine(t *testing.T) {
 				Target:     "ibn:weirdlookingtarget",
 			},
 		},
+		{
+			line: "http://example.com/|foo|bar|baz",
+			expected: BeaconLine{
+				Source:     "http://example.com/",
+				Annotation: "foo",
+				Target:     "bar",
+			},
+		},
 	}
 	for _, tt := range tests {
 		got, err := ParseLine(tt.line, BeaconMetadata{})
@@ -193,13 +201,5 @@ func TestParseLineWithMetadata(t *testing.T) {
 		if got != tt.expected {
 			t.Errorf("ParseLine(%s) = %+v, want %+v", tt.line, got, tt.expected)
 		}
-	}
-}
-
-func TestParseLineError(t *testing.T) {
-	s := "http://example.com/|foo|bar|baz"
-	_, err := ParseLine(s, BeaconMetadata{})
-	if err == nil {
-		t.Errorf("ParseLine(%s) error = nil, want error", s)
 	}
 }

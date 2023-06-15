@@ -3,7 +3,6 @@ package beaconspec
 
 import (
 	"bufio"
-	"fmt"
 	"net/url"
 	"os"
 	"strings"
@@ -90,9 +89,6 @@ func extractMetadataValue(line string) string {
 func ParseLine(line string, data BeaconMetadata) (BeaconLine, error) {
 	b := BeaconLine{}
 	s := strings.Split(line, "|")
-	if len(s) > 3 {
-		return b, fmt.Errorf("invalid line: %s", line)
-	}
 
 	if len(s) == 1 {
 		b.Source = joinMetaLinks(data.prefix, s[0])
@@ -107,7 +103,7 @@ func ParseLine(line string, data BeaconMetadata) (BeaconLine, error) {
 			b.Target = joinMetaLinks(data.target, s[0])
 			b.Annotation = s[1]
 		}
-	} else if len(s) == 3 {
+	} else if len(s) >= 3 {
 		b.Source = joinMetaLinks(data.prefix, s[0])
 		b.Annotation = s[1]
 		b.Target = joinMetaLinks(data.target, s[2])
